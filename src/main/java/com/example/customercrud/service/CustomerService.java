@@ -32,10 +32,7 @@ public class CustomerService {
 
     public Customer getCustomerById(Integer id){
         Optional<Customer> byId = customerRepository.findById(id);
-        if (byId.isPresent()){
             return byId.get();
-        }
-        return null;
     }
 
     public ApiResponse addCustomer(CustomerDto customerDto){
@@ -47,6 +44,7 @@ public class CustomerService {
         customer.setName(customerDto.getName());
         customer.setPhoneNumber(customerDto.getPhoneNumber());
         customer.setAdress(customerDto.getAdress());
+        customerRepository.save(customer);
         return new ApiResponse("Mijoz qo'shildi", true);
     }
 
@@ -58,6 +56,7 @@ public class CustomerService {
             customer.setName(customerDto.getName());
             customer.setPhoneNumber(customerDto.getPhoneNumber());
             customer.setAdress(customerDto.getAdress());
+            customerRepository.save(customer);
             return new ApiResponse("Mijoz malumotlari yangilandi", true);
         }
         return new ApiResponse("Bunday Id lik mijoz topilmadi", false);
